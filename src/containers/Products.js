@@ -1,22 +1,28 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
 
-import ProductItem from '../components/Products/ProductItem';
-import './Products.css';
+import ProductItem from "../components/Products/ProductItem";
+import "./Products.css";
 
-const Products = props => {
-  const productList = useSelector(state => state.shop.products);
+const Products = (props) => {
+  const productsStore = useSelector((state) => state.products);
+
+  // console.log(productsStore);
+
+  const { products: productList } = productsStore;
+
   return (
     <ul className="products-list">
-      {productList.map(prod => (
-        <ProductItem
-          key={prod.id}
-          id={prod.id}
-          title={prod.title}
-          description={prod.description}
-          isFav={prod.isFavorite}
-        />
-      ))}
+      {productList &&
+        productList.map((prod) => (
+          <ProductItem
+            key={prod.id}
+            id={prod.id}
+            title={prod.title}
+            description={prod.description}
+            isFav={prod.isFavorite}
+          />
+        ))}
     </ul>
   );
 };

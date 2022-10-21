@@ -5,13 +5,23 @@ import FavoriteItem from "../components/Favorites/FavoriteItem";
 import "./Products.css";
 
 const Favorites = (props) => {
-  const favoriteProducts = useSelector((state) =>
-    state.shop.products.filter((p) => p.isFavorite)
-  );
-  let content = <p className="placeholder">Got no favorites yet!</p>;
-  if (favoriteProducts.length > 0) {
-    content = (
-      <ul className="products-list">
+  const productStore = useSelector((state) => state.products);
+
+  const { products } = productStore;
+
+  // console.log(products);
+
+  // -- get favorite products
+  const favoriteProducts = products.filter((product) => product.isFavorite);
+
+  console.log(favoriteProducts);
+
+  if (favoriteProducts.length === 0)
+    return <p className="placeholder">Got no favorites yet!</p>;
+
+  return (
+    favoriteProducts.length > 0 && (
+      <ul>
         {favoriteProducts.map((prod) => (
           <FavoriteItem
             key={prod.id}
@@ -21,9 +31,8 @@ const Favorites = (props) => {
           />
         ))}
       </ul>
-    );
-  }
-  return content;
+    )
+  );
 };
 
 export default Favorites;
