@@ -1,27 +1,39 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 
 import Card from "../UI/Card";
 import "./ProductItem.css";
 
-import { productActions } from "../../store/productSlice";
+// ---- using Redux 👇
+// import { useDispatch } from "react-redux";
+// import { productActions } from "../../store/productSlice";
+
+// ---- using built-in Context API 👇
+import { useContext } from "react";
+import { ProductsContext } from "../../context/ProductsContext";
 
 const ProductItem = (props) => {
-  const dispatch = useDispatch();
-
+  // ---- using Redux 👇
+  // const dispatch = useDispatch();
   // console.log(productActions);
 
+  // ---- using built-in Context API 👇
+  const { toggleFav } = useContext(ProductsContext);
+
   const toggleFavHandler = () => {
-    dispatch(productActions.toggleFav({ itemId: props.id }));
+    // ---- using Redux 👇
+    // dispatch(productActions.toggleFav({ itemId: props.id }));
+
+    // ---- using built-in Context API 👇
+    toggleFav(props.id);
   };
 
   return (
     <Card style={{ marginBottom: "1rem" }}>
       <div className="product-item">
-        <h2 className={props.isFav ? "is-fav" : ""}>{props.title}</h2>
+        <h2 className={props.isFav ? "is-fav" : undefined}>{props.title}</h2>
         <p>{props.description}</p>
         <button
-          className={!props.isFav ? "button-outline" : ""}
+          className={!props.isFav ? "button-outline" : undefined}
           onClick={toggleFavHandler}
         >
           {props.isFav ? "Un-Favorite" : "Favorite"}

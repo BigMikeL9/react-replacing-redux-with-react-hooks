@@ -1,20 +1,29 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import ProductItem from "../components/Products/ProductItem";
 import "./Products.css";
 
+// ---- using Redux 👇
+// import { useSelector } from "react-redux";
+
+// ---- using built-in Context API 👇
+import { useContext } from "react";
+import { ProductsContext } from "../context/ProductsContext";
+
 const Products = (props) => {
-  const productsStore = useSelector((state) => state.products);
+  // ---- using Redux 👇
+  // const productsStore = useSelector((state) => state.products);
+  // const { products: productsList } = productsStore;
 
-  // console.log(productsStore);
+  // ---- using built-in Context API 👇
+  const { productsList } = useContext(ProductsContext);
 
-  const { products: productList } = productsStore;
+  console.log(productsList);
 
   return (
     <ul className="products-list">
-      {productList &&
-        productList.map((prod) => (
+      {productsList &&
+        productsList.map((prod) => (
           <ProductItem
             key={prod.id}
             id={prod.id}

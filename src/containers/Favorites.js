@@ -1,18 +1,27 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import FavoriteItem from "../components/Favorites/FavoriteItem";
 import "./Products.css";
 
+// ---- using built-in Context API 👇
+import { useContext } from "react";
+import { ProductsContext } from "../context/ProductsContext";
+
+// ---- using Redux 👇
+// import { useSelector } from "react-redux";
+
 const Favorites = (props) => {
-  const productStore = useSelector((state) => state.products);
+  // ---- using built-in Context API 👇
+  const { productsList } = useContext(ProductsContext);
 
-  const { products } = productStore;
+  // ---- using Redux 👇
+  // const productStore = useSelector((state) => state.products);
+  // const { products: productsList } = productStore;
 
-  // console.log(products);
+  console.log(productsList);
 
   // -- get favorite products
-  const favoriteProducts = products.filter((product) => product.isFavorite);
+  const favoriteProducts = productsList.filter((product) => product.isFavorite);
 
   console.log(favoriteProducts);
 
