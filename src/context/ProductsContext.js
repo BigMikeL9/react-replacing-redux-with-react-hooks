@@ -1,6 +1,13 @@
-import React, { createContext, useState } from "react";
+// --------------------------------------
+// Using 'Context API' to manage global/App-wide state.
 
-// 1. First approach using the built-in 'Context API' to manage our global/app-wide state with React ONLY tools.abs
+/*
+  - 🛑 NOT the best solution especially when we have state that gets updated frequently, like a shopping cart for instance 
+  - 🟢 'Context API' is a GOOD for managing global/app-wide state when the state doesn't change frequently, like for user-login/authentication or a theme
+*/
+// --------------------------------------
+
+import React, { createContext, useState } from "react";
 
 export const ProductsContext = createContext({
   products: [],

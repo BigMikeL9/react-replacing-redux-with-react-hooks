@@ -1,3 +1,7 @@
+// --------------------------------------
+// Using 'Redux' to manage App-wide state
+// --------------------------------------
+
 import { configureStore } from "@reduxjs/toolkit";
 import productSlice from "./productSlice";
 

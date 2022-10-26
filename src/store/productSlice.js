@@ -44,10 +44,7 @@ const productSlice = createSlice({
       state.products[activeProd_Index].isFavorite =
         !state.products[activeProd_Index].isFavorite;
 
-      console.log(
-        "CURRENT State after changing item:",
-        current(state.products[activeProd_Index])
-      );
+      console.log("CHANGED item:", current(state.products[activeProd_Index]));
     },
   },
 });
