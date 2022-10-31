@@ -1,4 +1,6 @@
-// This file will be used to INITIALIZE the store for products, using the store we built using custom hooks
+// --------------------------------------
+// This file will be used to INITIALIZE the store for products, using the store we built using CUSTOM HOOKS 'useStore'
+// --------------------------------------
 
 import { initStore } from "./useStore";
 

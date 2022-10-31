@@ -1,10 +1,8 @@
 // --------------------------------------
 // Building our own Global/App-wide state management store and solution using 'React Custom Hook'.
 
-/*
-  - 
-*/
 // --------------------------------------
+
 import { useEffect, useState } from "react";
 
 // ----- GLOBAL VARIABLES -----
@@ -27,7 +25,13 @@ export const useStore = () => {
 
   // --------------------------
   // ---- Registering a listener function for each component that uses the 'useStore' hook, as it mounts. ----
-  // And REMOVE that listener function from the 'listeners' array, as the component UNMOUNTS.
+  /* 
+  - So each component that uses the 'useStore' custom hook, will get their own 'setState' function.
+
+  - That 'setState' function is then pushed to the 'listeners' array, as the component MOUNTS.
+
+  - And REMOVED from the 'listeners' array as the component UNMOUNTS.
+  */
 
   useEffect(() => {
     // EVERY component that uses this custom hook will get their OWN 'setState' function, which is then pushed to the 'listeners' array which is SHARED between all components that use the 'useStore' custom hook.
@@ -36,9 +40,11 @@ export const useStore = () => {
 
     return () => {
       // get rid of a component's 'setState' listener function, from the listeners array,  as it UNMOUNTS.
-      // NOTE: IMPORTANT to get rid of a component's listener function as it unmounts because otherwise these listener functions can pile up and cause memory leaks in our application.
+      // NOTE: IMPORTANT We get rid of a component's listener function as it unmounts because otherwise these listener functions can pile up and cause memory leaks in our application.
 
-      // 🌟 REMEMBER -->  Functions are objects in JS which are reference types stored in memory that has a value which contains the address of the allocated memory for that object in the Heap. So 'setState' for each component that uses 'useStore' custom hook will have a unique address value that can be used with equality operator "===" to identify and remove them from the listeners array, since they both have the same address that points to the same object instance stored in the heap.
+      // 🌟 REMEMBER -->  Functions are objects in JS which are reference types stored in memory that has a value which contains the address of the allocated memory for that object in the Heap.
+      // So the 'setState' function for each component that uses 'useStore' custom hook will have a unique address value that can be used with equality operator "===" to identify and remove that 'setState' function from the listeners array, since they both have the same address that points to the same object instance stored in the heap.
+
       listeners.filter((listener) => listener !== setState);
     };
   }, []);
