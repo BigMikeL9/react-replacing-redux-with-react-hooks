@@ -8,8 +8,11 @@ import "./ProductItem.css";
 // import { productActions } from "../../store/productSlice";
 
 // ---- using built-in Context API 👇
-import { useContext } from "react";
-import { ProductsContext } from "../../context/ProductsContext";
+// import { useContext } from "react";
+// import { ProductsContext } from "../../context/ProductsContext";
+
+// ---- using the custom Store built using Custom React Hooks 👇
+import { useStore } from "../../hooks-store/useStore";
 
 const ProductItem = (props) => {
   // ---- using Redux 👇
@@ -17,16 +20,25 @@ const ProductItem = (props) => {
   // console.log(productActions);
 
   // ---- using built-in Context API 👇
-  const { toggleFav } = useContext(ProductsContext);
+  // const { toggleFav } = useContext(ProductsContext);
 
+  // ---- using the custom Store built using Custom React Hooks 👇
+  const { dispatch } = useStore();
+  // console.log(dispatch);
+
+  // --------------------------------------------
   const toggleFavHandler = () => {
     // ---- using Redux 👇
     // dispatch(productActions.toggleFav({ itemId: props.id }));
 
     // ---- using built-in Context API 👇
-    toggleFav(props.id);
+    // toggleFav(props.id);
+
+    // ---- using the custom Store built using Custom React Hooks 👇
+    dispatch("TOGGLE_FAV", { itemId: props.id });
   };
 
+  // --------------------------------------------
   return (
     <Card style={{ marginBottom: "1rem" }}>
       <div className="product-item">

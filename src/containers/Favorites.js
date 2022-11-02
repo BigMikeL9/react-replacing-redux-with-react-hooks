@@ -4,26 +4,31 @@ import FavoriteItem from "../components/Favorites/FavoriteItem";
 import "./Products.css";
 
 // ---- using built-in Context API 👇
-import { useContext } from "react";
-import { ProductsContext } from "../context/ProductsContext";
+// import { useContext } from "react";
+// import { ProductsContext } from "../context/ProductsContext";
 
 // ---- using Redux 👇
 // import { useSelector } from "react-redux";
 
-const Favorites = (props) => {
-  // ---- using built-in Context API 👇
-  const { productsList } = useContext(ProductsContext);
+// ---- using the custom Store built using Custom React Hooks 👇
+import { useStore } from "../hooks-store/useStore";
 
+const Favorites = (props) => {
   // ---- using Redux 👇
   // const productStore = useSelector((state) => state.products);
   // const { products: productsList } = productStore;
 
-  console.log(productsList);
+  // ---- using built-in Context API 👇
+  // const { productsList } = useContext(ProductsContext);
+
+  // ---- using the custom Store built using Custom React Hooks 👇
+  const { globalState } = useStore();
+  const productsList = globalState.products;
 
   // -- get favorite products
   const favoriteProducts = productsList.filter((product) => product.isFavorite);
 
-  console.log(favoriteProducts);
+  console.log("💖 Favorite Products List: ", productsList);
 
   if (favoriteProducts.length === 0)
     return <p className="placeholder">Got no favorites yet!</p>;

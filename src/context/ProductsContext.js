@@ -50,17 +50,17 @@ const ProductsContextProvider = (props) => {
 
       // --- make copy of prev productsList
       // ⭐ NEED to create a copy of the previous productsList array because its a reference type and remember reference types point to allocated piece of memory in the Call-Stack which will have a value equal to the memory address that is in the heap, so react wont be able to detect a change in state if we update the prevState itself without making a new copy of it then updating it.
-      const updatedList = [...prevState];
+      const newProductsList = [...prevState];
 
       // --- update current product item
-      updatedList[itemIndex] = {
-        ...updatedList[itemIndex],
-        isFavorite: !updatedList[itemIndex].isFavorite,
+      newProductsList[itemIndex] = {
+        ...newProductsList[itemIndex],
+        isFavorite: !newProductsList[itemIndex].isFavorite,
       };
 
       // console.log(updatedList);
 
-      return updatedList;
+      return newProductsList;
     });
   };
 
