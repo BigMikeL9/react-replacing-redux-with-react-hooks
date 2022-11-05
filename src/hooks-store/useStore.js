@@ -17,7 +17,9 @@ let actions = {};
 
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------
-export const useStore = () => {
+export const useStore = (props) => {
+  const { registerListener } = props;
+
   // --------------------------
   // ---- re-renders subscribed components (components that use the 'useStore' custom hook) when state changes ----
   // we are ONLY interested in the 'setState' function because we want to re-render any component that uses the 'useStore' hook, whenever the state changes
@@ -37,7 +39,8 @@ export const useStore = () => {
     // EVERY component that uses this custom hook will get their OWN 'setState' function, which is then pushed to the 'listeners' array which is SHARED between all components that use the 'useStore' custom hook.
     // so the 'listeners' array will grow overtime, the more components use the 'useStore' hook.
 
-    listeners.push(setState);
+    console.log(registerListener);
+    if (registerListener) listeners.push(setState);
 
     return () => {
       // get rid of a component's 'setState' listener function, from the listeners array,  as it UNMOUNTS.
@@ -46,9 +49,10 @@ export const useStore = () => {
       // 🌟 REMEMBER -->  Functions are objects in JS which are reference types stored in memory that has a value which contains the address of the allocated memory for that object in the Heap.
       // So the 'setState' function for each component that uses 'useStore' custom hook will have a unique address value that can be used with equality operator "===" to identify and remove that 'setState' function from the listeners array, since they both have the same address that points to the same object instance stored in the heap.
 
-      listeners = listeners.filter((listener) => listener !== setState);
+      if (registerListener)
+        listeners = listeners.filter((listener) => listener !== setState);
     };
-  }, []);
+  }, [registerListener]);
 
   // --------------------------
   // ---- Changing ours 'globalState' by dispatching actions in components that use the 'useStore' custom hook ----

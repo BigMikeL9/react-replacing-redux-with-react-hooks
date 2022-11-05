@@ -22,7 +22,7 @@ const Products = (props) => {
   // const { productsList } = useContext(ProductsContext);
 
   // ---- using the custom Store built using Custom React Hooks 👇
-  const { globalState } = useStore();
+  const { globalState } = useStore({ registerListener: true });
   const productsList = globalState.products;
 
   // console.log("Products List: ", productsList);

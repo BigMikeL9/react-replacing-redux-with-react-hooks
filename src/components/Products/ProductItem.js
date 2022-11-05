@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Card from "../UI/Card";
 import "./ProductItem.css";
@@ -14,7 +14,9 @@ import "./ProductItem.css";
 // ---- using the custom Store built using Custom React Hooks 👇
 import { useStore } from "../../hooks-store/useStore";
 
-const ProductItem = (props) => {
+const ProductItem = React.memo((props) => {
+  console.log("RENDERED");
+
   // ---- using Redux 👇
   // const dispatch = useDispatch();
   // console.log(productActions);
@@ -23,7 +25,7 @@ const ProductItem = (props) => {
   // const { toggleFav } = useContext(ProductsContext);
 
   // ---- using the custom Store built using Custom React Hooks 👇
-  const { dispatch } = useStore();
+  const { dispatch } = useStore({ registerListener: false });
   // console.log(dispatch);
 
   // --------------------------------------------
@@ -53,6 +55,6 @@ const ProductItem = (props) => {
       </div>
     </Card>
   );
-};
+});
 
 export default ProductItem;
